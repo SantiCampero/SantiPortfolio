@@ -1,0 +1,73 @@
+<section id="contacto" class="w-full px-4 py-20">
+    <div class="mx-auto w-full max-w-5xl rounded-[36px] border border-emerald-500/30 bg-emerald-950/10 px-6 py-12 shadow-[0_0_40px_rgba(16,185,129,0.08)] md:px-10 md:py-16">
+        <h2 class="mb-4 text-center text-4xl font-bold text-transparent bg-linear-to-r from-white to-white/60 bg-clip-text md:text-6xl">
+            Contacto
+        </h2>
+
+        <p class="mx-auto mb-10 max-w-3xl text-center text-lg leading-relaxed text-white/80 md:text-xl">
+            Tienes algun proyecto en mente?
+            <span class="font-semibold text-white">Escribeme</span>.
+        </p>
+
+        <form
+            action="https://formsubmit.co/martinezcamperosantiago@gmail.com"
+            method="POST"
+            class="mx-auto grid w-full max-w-3xl gap-4"
+        >
+            <input type="hidden" name="_subject" value="Nuevo mensaje desde tu portfolio" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+
+            <label class="grid gap-2">
+                <span class="text-sm font-medium text-white/80">Tu nombre</span>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Nombre"
+                    class="h-12 rounded-xl border border-white/15 bg-white/5 px-4 text-white placeholder:text-white/45 outline-none transition-colors focus:border-emerald-400"
+                />
+            </label>
+
+            <label class="grid gap-2">
+                <span class="text-sm font-medium text-white/80">Tu correo</span>
+                <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="correo@ejemplo.com"
+                    class="h-12 rounded-xl border border-white/15 bg-white/5 px-4 text-white placeholder:text-white/45 outline-none transition-colors focus:border-emerald-400"
+                />
+            </label>
+
+            <label class="grid gap-2">
+                <span class="text-sm font-medium text-white/80">Mensaje</span>
+                <textarea
+                    name="message"
+                    required
+                    rows="6"
+                    placeholder="Cuentame brevemente tu idea o necesidad"
+                    class="rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-white/45 outline-none transition-colors focus:border-emerald-400"
+                ></textarea>
+            </label>
+
+            <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+                <a
+                    href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=martinezcamperosantiago@gmail.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-sm text-white/70 transition-colors hover:text-emerald-300"
+                >
+                    O enviame un correo directo
+                </a>
+
+                <button
+                    type="submit"
+                    class="inline-flex h-12 items-center justify-center rounded-full border border-emerald-500/40 px-6 text-sm font-medium text-white/90 transition-colors duration-300 hover:bg-emerald-500 hover:text-emerald-950"
+                >
+                    Enviar mensaje
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

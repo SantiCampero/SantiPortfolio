@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Badge from '../components/Badge.astro';
+import Technologies from '../components/Technologies.astro';
+import Projects from '../components/Projects.astro';
+import AboutMe from '../components/AboutMe.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import cvPdf from '../assets/CV_santiagoMC.pdf';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Mi Portfolio">
+	<div id="inicio" aria-hidden="true"></div>
+	<!-- Añadimos pt-40 (padding-top) para que no choque con el navbar fijo -->
+	<main class="mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 pt-40 pb-20 text-center">	
+		
+		<Badge>Disponible para trabajar</Badge>
+		<p class="text-white text-lg md:text-3xl font-medium mt-8 mb-4">
+			Santiago Martinez Campero
+		</p>
+		
+		<h1 class="mx-auto mb-8 max-w-[10ch] bg-linear-to-r from-emerald-300 to-emerald-500 bg-clip-text text-balance text-transparent font-extrabold text-[clamp(3rem,14vw,8rem)] leading-[0.9] tracking-tight">
+			Desarrollador FullStack
+		</h1>
+
+		<a href={cvPdf} download="CV_Santiago_Martinez_Campero.pdf" class="w-52.5 h-20 sm:w-60.75 sm:h-22.5 bg-transparent flex flex-row gap-2.5 text-lg sm:text-xl font-medium rounded-[50px] justify-center items-center border border-emerald-500/30 text-white/90 hover:bg-emerald-900/30 hover:border-emerald-400 duration-300">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+				<path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+				<path d="M12 12v9"></path>
+				<path d="m8 17 4 4 4-4"></path>
+			</svg>
+			Descargar CV
+		</a>
+
+	</main> 
+	<Technologies />
+	<AboutMe />
+	<Projects />
+	<Contact />
+	<Footer />
+
 </Layout>

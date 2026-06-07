@@ -1,0 +1,127 @@
+---
+import santiImg from '../assets/santi.png';
+---
+<header class="fixed inset-x-0 top-4 z-50 hidden justify-center px-3 lg:flex">
+    <nav id="navbar-container" class="flex w-[min(95vw,820px)] flex-row items-center px-4 md:px-10 py-2 md:py-3 text-[15px] md:text-[17px] font-medium rounded-full bg-gray-900/50 border border-white/10 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-500">
+        
+        <div class="flex basis-0 grow justify-end items-center gap-x-6 md:gap-x-14">
+            <a href="#inicio" class="text-white/80 transition-all duration-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] whitespace-nowrap">Inicio</a>
+            <a href="#sobre-mi" class="text-white/80 transition-all duration-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] whitespace-nowrap">Sobre mí</a>
+        </div>
+       
+        <!-- Centro: Contenedor que "presta" la foto o se achica y la esconde -->
+        <div id="nav-pic-wrapper" class="mx-6 md:mx-14 relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-all duration-500 overflow-visible flex items-center justify-center">
+            <!-- La foto original a animar. 'pointer-events-auto' para click, 'object-cover' para forma -->
+            <img id="magic-profile-pic" src={santiImg.src} alt="Santiago Martinez" class="w-full h-full rounded-full object-cover border-2 border-emerald-500/50 shadow-md shadow-emerald-900/50 z-50 transition-all duration-500 transform origin-top-left" />
+        </div>
+
+        <div class="flex basis-0 grow justify-start items-center gap-x-6 md:gap-x-14">
+            <a href="#proyectos" class="text-white/80 transition-all duration-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] whitespace-nowrap">Proyectos</a>
+            <a href="#contacto" class="text-white/80 transition-all duration-300 hover:text-emerald-400 hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] whitespace-nowrap">Contacto</a>
+        </div>
+
+    </nav>
+</header>
+
+<!-- Script Mágico FLIP para la animación de la foto flotante -->
+<script is:inline>
+    // En Astro usamos el escuchador load o document listener
+    document.addEventListener('DOMContentLoaded', () => {
+        const pic = document.getElementById('magic-profile-pic');
+        const navWrapper = document.getElementById('nav-pic-wrapper');
+        const aboutPlaceholder = document.getElementById('sobre-mi-pic-placeholder');
+
+        // A/B del avatar en navbar:
+        // ?navpic=on     -> estado normal
+        // ?navpic=off    -> oculta la foto, mantiene espacio
+        // ?navpic=remove -> elimina foto y colapsa su espacio
+        const navPicModeParam = new URLSearchParams(window.location.search).get('navpic');
+        const navPicMode = navPicModeParam === 'off' || navPicModeParam === 'remove' ? navPicModeParam : 'on';
+
+        if (navPicMode === 'off') {
+            if (pic) {
+                pic.classList.add('opacity-0', 'pointer-events-none');
+            }
+            return;
+        }
+
+        if (navPicMode === 'remove') {
+            if (pic) {
+                pic.classList.add('hidden', 'pointer-events-none');
+            }
+            if (navWrapper) {
+                navWrapper.classList.remove('mx-6', 'md:mx-14', 'w-10', 'h-10', 'md:w-12', 'md:h-12');
+                navWrapper.classList.add('w-0', 'h-0', 'mx-3', 'md:mx-6');
+            }
+            return;
+        }
+        
+        let inAboutSection = false;
+
+        function animatePic(toMode) {
+            if (!pic || !navWrapper || !aboutPlaceholder) return;
+            
+            // First (Capturar inicio de animación)
+            const oldRect = pic.getBoundingClientRect();
+            
+            // Movemos la foto en el DOM al destino deseado
+            if (toMode === 'about') {
+                aboutPlaceholder.appendChild(pic);
+                // El nav cierra su hueco mágicamente, pero DEJAMOS un pequeño margen (mx-4) para que no se peguen 100%
+                navWrapper.classList.remove('mx-6', 'md:mx-14', 'w-10', 'h-10', 'md:w-12', 'md:h-12');
+                navWrapper.classList.add('w-0', 'h-0', 'mx-3', 'md:mx-6');
+            } else {
+                navWrapper.appendChild(pic);
+                // Restaurar el hueco en el navbar
+                navWrapper.classList.remove('w-0', 'h-0', 'mx-3', 'md:mx-6');
+                navWrapper.classList.add('mx-6', 'md:mx-14', 'w-10', 'h-10', 'md:w-12', 'md:h-12');
+            }
+            
+            // Last (Capturar cómo Tailwind cambió la foto al meterla al lugar grande / pequeño)
+            const newRect = pic.getBoundingClientRect();
+            
+            // Invert (Invertimos la escala y la distancia moviendo la opuesta matemáticamente)
+            const deltaX = oldRect.left - newRect.left;
+            const deltaY = oldRect.top - newRect.top;
+            const scaleW = oldRect.width / newRect.width;
+            const scaleH = oldRect.height / newRect.height;
+            
+            // Setear el pasado sin animación para no ver el salto
+            pic.style.transition = 'none';
+            pic.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scaleW}, ${scaleH})`;
+            pic.style.borderRadius = toMode === 'about' ? '12px' : '50px'; // Un poco de morphing si quieres
+            
+            // Reflow: forzamos que el navegador renderice la posición falsa del pasado
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // Play (Jugamos la animación hacia el presente, quitando los transforms)
+                    pic.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s';
+                    pic.style.transform = 'translate(0, 0) scale(1, 1)';
+                    pic.style.borderRadius = '50%'; // Vuelve a ser un circulo
+                });
+            });
+        }
+
+        // Listener del scroll para chequear cuando la sección About Me cruzó la pantalla
+        window.addEventListener('scroll', () => {
+            if (!aboutPlaceholder) return;
+            const parent = aboutPlaceholder.parentElement;
+            if(!parent) return;
+
+            const rect = parent.getBoundingClientRect();
+            const triggerPoint = window.innerHeight * 0.75;
+
+            if (rect.top <= triggerPoint && rect.bottom >= 0) {
+                if (!inAboutSection) {
+                    inAboutSection = true;
+                    animatePic('about');
+                }
+            } else {
+                if (inAboutSection) {
+                    inAboutSection = false;
+                    animatePic('nav');
+                }
+            }
+        });
+    });
+</script>
