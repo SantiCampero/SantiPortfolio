@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
 	<main class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
 		
 		<!-- Animated icon -->
-		<div class="coming-soon-icon mb-8">
+		<div class="animate-float mb-8">
 			<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400">
 				<path d="M12 6V2H8"/>
 				<path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/>
@@ -32,7 +32,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<!-- Progress bar animation -->
 		<div class="w-64 h-2 rounded-full bg-white/10 overflow-hidden mb-10">
-			<div class="progress-bar h-full rounded-full bg-linear-to-r from-emerald-400 to-emerald-600"></div>
+			<div class="animate-loading h-full rounded-full bg-linear-to-r from-emerald-400 to-emerald-600"></div>
 		</div>
 
 		<!-- Back button -->
@@ -47,36 +47,3 @@ import Layout from '../layouts/Layout.astro';
 	</main>
 </Layout>
 
-<style>
-	.coming-soon-icon {
-		animation: float 3s ease-in-out infinite;
-	}
-
-	@keyframes float {
-		0%, 100% {
-			transform: translateY(0px);
-		}
-		50% {
-			transform: translateY(-12px);
-		}
-	}
-
-	.progress-bar {
-		animation: loading 2.5s ease-in-out infinite;
-	}
-
-	@keyframes loading {
-		0% {
-			width: 0%;
-			margin-left: 0;
-		}
-		50% {
-			width: 70%;
-			margin-left: 15%;
-		}
-		100% {
-			width: 0%;
-			margin-left: 100%;
-		}
-	}
-</style>
