@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="En construcción - Portfolio">
+	<main class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+		
+		<!-- Animated icon -->
+		<div class="coming-soon-icon mb-8">
+			<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400">
+				<path d="M12 6V2H8"/>
+				<path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/>
+				<path d="M2 12h2"/>
+				<path d="M9 11v2"/>
+				<path d="M15 11v2"/>
+				<path d="M20 12h2"/>
+			</svg>
+		</div>
+
+		<!-- Title -->
+		<h1 class="text-5xl md:text-7xl font-extrabold bg-linear-to-r from-emerald-300 to-emerald-500 bg-clip-text text-transparent mb-6">
+			En Construcción
+		</h1>
+
+		<!-- Message -->
+		<p class="text-white/75 text-lg md:text-xl max-w-lg leading-relaxed mb-4">
+			Estamos trabajando activamente en este proyecto en este momento.
+		</p>
+		<p class="text-white/50 text-base md:text-lg max-w-md leading-relaxed mb-10">
+			Pronto estará disponible para que puedas ver la demo y explorar el repositorio. ¡Volvé pronto!
+		</p>
+
+		<!-- Progress bar animation -->
+		<div class="w-64 h-2 rounded-full bg-white/10 overflow-hidden mb-10">
+			<div class="progress-bar h-full rounded-full bg-linear-to-r from-emerald-400 to-emerald-600"></div>
+		</div>
+
+		<!-- Back button -->
+		<a href="/#proyectos" class="inline-flex h-12 items-center justify-center rounded-full border border-emerald-500/40 px-8 text-base font-medium text-white/90 transition-all duration-300 hover:bg-emerald-500 hover:text-emerald-950 hover:scale-105 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+				<path d="m12 19-7-7 7-7"/>
+				<path d="M19 12H5"/>
+			</svg>
+			Volver a Proyectos
+		</a>
+
+	</main>
+</Layout>
+
+<style>
+	.coming-soon-icon {
+		animation: float 3s ease-in-out infinite;
+	}
+
+	@keyframes float {
+		0%, 100% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-12px);
+		}
+	}
+
+	.progress-bar {
+		animation: loading 2.5s ease-in-out infinite;
+	}
+
+	@keyframes loading {
+		0% {
+			width: 0%;
+			margin-left: 0;
+		}
+		50% {
+			width: 70%;
+			margin-left: 15%;
+		}
+		100% {
+			width: 0%;
+			margin-left: 100%;
+		}
+	}
+</style>
